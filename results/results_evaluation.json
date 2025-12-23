@@ -1,0 +1,257 @@
+[
+  {
+    "name": "Correct, complete code",
+    "original_code": "import os\n\ndef my_func():\n    return os.getcwd()",
+    "dspy_code": "import os\n\ndef my_func():\n    return os.getcwd()",
+    "diagnostics": [],
+    "deterministic_score_before": 0.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 5\npreservation of logic score - 5\nreadability score - 5\nexplanation: The corrected code is identical to the original code, so it is semantically correct, preserves the original logic completely, and is already clear and Pythonic."
+  },
+  {
+    "name": "Code with an undefined variable error",
+    "original_code": "def my_func():\n    print(undeclared_variable)",
+    "dspy_code": "def my_function():\n    x = \"some_value\"\n    print(x)",
+    "diagnostics": [
+      {
+        "message": "\"undeclared_variable\" is not defined",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 10
+          },
+          "end": {
+            "line": 1,
+            "character": 29
+          }
+        }
+      }
+    ],
+    "deterministic_score_before": -10.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 5  \npreservation of logic score - 3  \nreadability score - 5  \nexplanation: The corrected code fixes the original error by declaring and using a variable, making it semantically correct. It changes the function name and introduces a new variable, which deviates slightly from the original logic. However, the code is clear, well-structured, and follows Pythonic conventions."
+  },
+  {
+    "name": "Incomplete code (open function signature)",
+    "original_code": "def my_func(",
+    "dspy_code": "{\"answer\": \"def my_func():\\n    pass\"}",
+    "diagnostics": [
+      {
+        "message": "Expected parameter name",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      },
+      {
+        "message": "Position-only parameter separator not allowed as first parameter",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      },
+      {
+        "message": "\"(\" was not closed",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 11
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      },
+      {
+        "message": "Expected \":\"",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      },
+      {
+        "message": "Expected expression",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      },
+      {
+        "message": "Statements must be separated by newlines or semicolons",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 12
+          },
+          "end": {
+            "line": 0,
+            "character": 12
+          }
+        }
+      }
+    ],
+    "deterministic_score_before": -60.0,
+    "normalized_diagnostics": [
+      {
+        "message": "Expression value is unused",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 38
+          }
+        }
+      }
+    ],
+    "deterministic_score_after": -5.0,
+    "llm_judge_score": "semantic correctness score - 5\npreservation of logic score - 5\nreadability score - 5\nexplanation: The corrected code fixes the syntax error by adding the function body with a pass statement, preserving the original logic and maintaining clarity and Pythonic style."
+  },
+  {
+    "name": "Incomplete code (if statement with no body)",
+    "original_code": "def my_func(x):\n    if x > 10:",
+    "dspy_code": "def main():\n    name = \"Guest\" # Initialize name with a default value\n    try:\n        name = input(\"What is your name? \")\n    except EOFError:\n        # Handle cases where input is not available (e.g., piped input, non-interactive shell)\n        # If EOFError occurs, 'name' will retain its default value \"Guest\"\n        print(\"No input provided. Using default name 'Guest'.\")\n    print(f\"Hello, {name}!\")\n\nif __name__ == \"__main__\":\n    main()",
+    "diagnostics": [
+      {
+        "message": "Expected indented block",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 14
+          },
+          "end": {
+            "line": 1,
+            "character": 14
+          }
+        }
+      }
+    ],
+    "deterministic_score_before": -10.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 5\npreservation of logic score - 3\nreadability score - 5\nexplanation: The corrected code is semantically correct, handling input errors and providing a default value, though it deviates from the original logic which was unrelated. It is highly readable and follows Pythonic conventions."
+  },
+  {
+    "name": "Syntactically valid code with a type error",
+    "original_code": "def add(a: int, b: int) -> int:\n    return 'hello'",
+    "dspy_code": "def add(a: int, b: int) -> int:\n    return a + b",
+    "diagnostics": [
+      {
+        "message": "Type \"Literal['hello']\" is not assignable to return type \"int\"\n\u00a0\u00a0\"Literal['hello']\" is not assignable to \"int\"",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 1,
+            "character": 11
+          },
+          "end": {
+            "line": 1,
+            "character": 18
+          }
+        }
+      }
+    ],
+    "deterministic_score_before": -10.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 5\npreservation of logic score - 5\nreadability score - 5\nexplanation: The corrected code fixes the semantic error by returning the sum of a and b, preserving the original function's intent. The code is clear, concise, and follows Pythonic conventions."
+  },
+  {
+    "name": "Empty code",
+    "original_code": "",
+    "dspy_code": "def extract_nested_data(data, key):\n    if key in data:\n        return data[key]\n    for value in data.values():\n        if isinstance(value, dict):\n            result = extract_nested_data(value, key)\n            if result is not None:\n                return result\n    return None\n\nnested_data = {\n    'level1_key': {\n        'level2_key': 'value2',\n        'another_key': {\n            'target_key': 'target_value'\n        }\n    },\n    'some_other_key': 'value1'\n}\n\n# Example usage:\nfound_value = extract_nested_data(nested_data, 'target_key')\nprint(found_value)\n\nfound_value_list = extract_nested_data(nested_data, 'non_existent_key')\nprint(found_value_list)",
+    "diagnostics": [],
+    "deterministic_score_before": 0.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 5\npreservation of logic score - 5\nreadability score - 5\nexplanation: The code correctly searches for a key in nested dictionaries, preserving the original logic while maintaining clarity and Pythonic style with proper recursion and early returns."
+  },
+  {
+    "name": "Code with only whitespace",
+    "original_code": "    \n  ",
+    "dspy_code": "",
+    "diagnostics": [],
+    "deterministic_score_before": 0.0,
+    "normalized_diagnostics": [],
+    "deterministic_score_after": 0.0,
+    "llm_judge_score": "semantic correctness score - 0\npreservation of logic score - 0\nreadability score - 0\nexplanation: The original and corrected code are both empty, so no evaluation can be made. There is no code to analyze for correctness, logic preservation, or readability."
+  },
+  {
+    "name": "Code importing a non-existent module",
+    "original_code": "import a_module_that_does_not_exist",
+    "dspy_code": "{\"answer\": \"\"}",
+    "diagnostics": [
+      {
+        "message": "Import \"a_module_that_does_not_exist\" could not be resolved",
+        "severity": 1,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 7
+          },
+          "end": {
+            "line": 0,
+            "character": 35
+          }
+        }
+      }
+    ],
+    "deterministic_score_before": -10.0,
+    "normalized_diagnostics": [
+      {
+        "message": "Expression value is unused",
+        "severity": 2,
+        "range": {
+          "start": {
+            "line": 0,
+            "character": 0
+          },
+          "end": {
+            "line": 0,
+            "character": 14
+          }
+        }
+      }
+    ],
+    "deterministic_score_after": -5.0,
+    "llm_judge_score": "semantic correctness score - 0\npreservation of logic score - 5\nreadability score - 5\nexplanation: The corrected code does not fix the error as it is empty, but it preserves the original logic and is readable. However, it fails to address the actual issue of importing a non-existent module."
+  }
+]
