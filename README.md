@@ -13,30 +13,27 @@ This project provides tools to:
 - Evaluate code correctness and quality using custom scoring metrics and LLM based metrics.  
 - Run tests on multiple Python code snippets to assess the repair and evaluation system.
 
-The project is structured for maintainability and reuse, following best practices for Python packaging.
-
 ---
 
 ## Repository Structure
 
 lsp-code-fix/
+├── README.md               # Project overview, installation, and usage instructions
+├── pyproject.toml          # Project metadata, build system, and dependencies
+├── requirements.txt        # List of Python dependencies (pip install -r requirements.txt)
 │
-├── README.md # Project overview and usage instructions
-├── pyproject.toml # Project metadata and dependencies
-├── requirements.txt # List of Python dependencies for pip installation
+├── src/                    # Core logic and source code
+│   ├── lsp.py              # LSP class: Manages language server lifecycle and diagnostics
+│   ├── dspy.py             # DSPy class: Logic for code repair and signature definitions
+│   ├── evaluation.py       # Evaluator class: Scoring logic (deterministic & LLM-as-judge)
+│   └── runner.py           # Orchestration: Functions to execute the pipeline on datasets
 │
-├── src/ # Main source code
-│ ├── lsp.py # Defines the LSP class for code diagnostics
-│ ├── dspy.py # Defines the DSPy class for code repair
-│ ├── evaluation.py # Evaluator class for scoring and evaluating code
-│ └── runner.py # Functions to run evaluation on test cases
+├── tests/                  # Test data and verification scripts
+│   ├── test_cases.py       # Input data/JSON containing code snippets for testing
+│   ├── test_dspy.py        # Unit tests for the DSPyRepair module
+│   └── test_runner.py      # Integration tests to verify scoring and output generation
 │
-├── tests/ # Unit tests and test infrastructure
-│ ├── test_cases.py # Predefined test cases for code evaluation
-│ ├── test_dspy.py # Runs DSPyRepair tests on test cases
-│ └── test_runner.py # Runs evaluation on test results and adds scores
-│
-└── notebooks/ # Original Jupyter notebooks for experimentation
-└── analysis.ipynb # Notebook version of the experiments
+└── notebooks/              # Research and Development
+    └── analysis.ipynb      # Original experimentation and visualization of results
 
 
